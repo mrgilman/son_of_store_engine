@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     @notice = 'Welcome Aboard'
     respond_to do |format|
       if @user.save
+        UserMailer.welcome_email(@user).deliver
         session[:user_id] = @user.id
         format.html { redirect_to session[:return_to], :notice => @notice }
       else
