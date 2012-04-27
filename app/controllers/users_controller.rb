@@ -16,12 +16,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @notice = 'Welcome Aboard'
     respond_to do |format|
       if @user.save
         @user = User.find_by_email_address(@user.email_address)
         @user.send_welcome_email
         session[:user_id] = @user.id
+        @notice = "Welcome Aboard! #{view_context.link_to('Edit your profile', edit_user_path(@user))}".html_safe
         format.html { redirect_to session[:return_to], :notice => @notice }
       else
         format.html { render action: "new" }
