@@ -17,8 +17,6 @@ describe "store owner actions", dose_store_admin: true do
       end
 
       it "displays the name" do
-        raise StorePermission.all.inspect
-        save_and_open_page
         find("#store_name").text.should have_content store.name
       end
 
@@ -34,26 +32,26 @@ describe "store owner actions", dose_store_admin: true do
         page.should have_content "Edit"
       end
 
-      # context "adding another store admin" do
-      #   context "the added user already has an account" do
-      #     let!(:new_admin) { Fabricate(:user) }
-      #     before(:all) do
-      #      fill_in("#new_store_admin", with: new_admin.email_address)
-      #     end
-      #     it "creates a new Store Permissions record" do
-      #       expect { click_link "Add New Store Admin" }.to change { StorePermission.count }.by(1)
-      #     end
-      #     it "displays the new admin on the store admin page" do
-      #       within("#admin_list") do
-      #         page.should have_content(new_admin.email_address)
-      #         page.should have_content(new_admin.name)
-      #       end
-      #     end
-      #   end
-      #   context "the added user does not already have an account" do
+      context "adding another store admin" do
+        context "the added user already has an account" do
+          let!(:new_admin) { Fabricate(:user) }
+          before(:all) do
+           fill_in("#new_store_admin", with: new_admin.email_address)
+          end
+          it "creates a new Store Permissions record" do
+            expect { click_link "Add New Store Admin" }.to change { StorePermission.count }.by(1)
+          end
+          it "displays the new admin on the store admin page" do
+            within("#admin_list") do
+              page.should have_content(new_admin.email_address)
+              page.should have_content(new_admin.name)
+            end
+          end
+        end
+        context "the added user does not already have an account" do
 
-      #   end
-      # end
+        end
+      end
       context "when the store is pending approval" do
         before(:each) do
           store.update_attribute(:approval_status, "pending")
