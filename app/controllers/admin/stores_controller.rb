@@ -25,6 +25,6 @@ class Admin::StoresController < ApplicationController
   end
 
   def confirm_has_store_admin_access
-    redirect_to root_path unless current_user.is_admin_of(@store)
+    redirect_to root_path unless current_user && current_user.is_admin_of(@store)
   end
 end
