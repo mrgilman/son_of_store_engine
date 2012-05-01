@@ -156,7 +156,7 @@ StorePermission.create(user_id: chad.id, store_id: store3.id, permission_level: 
 
 # PRODUCTS
 products = []
-10000.times do
+100.times do
   products << Fabricate(:product, store_id: store3.id)
 end
 

@@ -3,6 +3,7 @@ class Admin::StoresController < ApplicationController
   before_filter :confirm_has_store_admin_access, only: [:show, :edit]
 
   def show
+    @store_permission = StorePermission.new
   end
 
   def index
