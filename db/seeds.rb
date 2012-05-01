@@ -28,6 +28,7 @@ store.update_attribute(:creating_user_id, jeff.id)
 store.update_attribute(:approval_status, "pending")
 store.update_attribute(:enabled, false)
 
+StorePermission.create(user_id: jeff.id, store_id: store.id, permission_level: 1)
 ['Bikes', 'Shoes', 'Helmets', 'Tires', 'Accessories' ].each do |cat|
   Category.create(name: cat, store_id: store.id)
 end
@@ -87,6 +88,9 @@ store2 = Store.create(name: 'Cool Sunglasses', domain: 'cool-sunglasses', descri
 store2.update_attribute(:creating_user_id, matt.id)
 store2.update_attribute(:approval_status, "approved")
 store2.update_attribute(:enabled, true)
+
+
+StorePermission.create(user_id: matt.id, store_id: store2.id, permission_level: 1)
 
 ['Bikes'.reverse, 'Shoes'.reverse, 'Helmets'.reverse, 'Tires'.reverse, 'Accessories'.reverse ].each do |cat|
   Category.create(name: cat, store_id: store2.id)
@@ -148,9 +152,11 @@ store3.update_attribute(:creating_user_id, matt.id)
 store3.update_attribute(:approval_status, "approved")
 store3.update_attribute(:enabled, true)
 
+StorePermission.create(user_id: chad.id, store_id: store3.id, permission_level: 1)
+
 # PRODUCTS
 products = []
-10000.times do
+100.times do
   products << Fabricate(:product, store_id: store3.id)
 end
 
