@@ -22,7 +22,6 @@ StoreEngine::Application.routes.draw do
 
   resources :stores, only: [:index, :new, :create, :update]
 
-  resources :store_permissions
 
 
   scope "/:domain" do
@@ -31,6 +30,7 @@ StoreEngine::Application.routes.draw do
     resources :products, only: [:index, :show]
     resources :categories, only: [:index, :show]
     resources :orders, except: [:new, :create, :destroy]
+    resources :store_permissions
     match '/admin' => 'admin/stores#show'
     resources :line_items, except: [:new]
     namespace :admin, module: "store_admin" do
